@@ -61,7 +61,7 @@ router.post('/registration', [body('email').isEmail().withMessage('Enter a vaild
     var user = new User({
       name: req.body.name,
       email: req.body.email,
-      phone: req.body.phone
+      phone: req.body.phone// phone 
     });
     user.save((error, data) => {
       console.log(error, data);
@@ -84,9 +84,9 @@ router.post('/registration', [body('email').isEmail().withMessage('Enter a vaild
   
 });
 // verify The mail
-router.patch('/:email', async (req, res, next) => {
+router.patch('/:email', async (req, res, next) => {// use post
   console.log("email", req.params.email);
-  //User.count();
+  //User.count(); // use try catch block
   const count = (await User.find({ username: { $exists: true } }).count()) + 1;
   console.log("count",count);
   User.findOneAndUpdate(
@@ -97,10 +97,10 @@ router.patch('/:email', async (req, res, next) => {
         updatedDate: new Date().toLocaleString(undefined, {
           timeZone: "Asia/Kolkata",
         }),
-        username: `PW_8800${count}`,
-        new:true
+        username: `PW_8800${count}`,// use index functionality _id format
+        //new:true 3rd arg
       },
-    }
+    },{new:true}
   ).exec((error, data) => {
     console.log(data);
     if (data) {
@@ -121,7 +121,7 @@ router.patch('/:email', async (req, res, next) => {
 // Setpassword
 router.put('/setpassword', [body('password').isLength(6).withMessage('password Must Contain 6 Characters')], encryptPassword, (req, res, next) => {
   User.findOneAndUpdate(
-    { $and: [{ username: req.body.username },{email:req.body.email}] },
+    { $and: [{ username: req.body.username },{email:req.body.email}] },// remove $and
     {
       $set: {
         password: req.body.password,
