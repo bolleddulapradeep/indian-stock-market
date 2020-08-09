@@ -2,7 +2,7 @@ var JWT = require('jsonwebtoken');
 const isAuthenticated = (req, res, next) => {
     console.log('is Authenticated')
 
-      console.log(req.body.username);
+      console.log(req.username);
       if (req.headers.authorization) {
         JWT.verify(
           req.headers.authorization.replace("Bearer ", ""),
