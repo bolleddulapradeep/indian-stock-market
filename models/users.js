@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var Users = new Schema({
   name: { type: String, required: true },
-  email: { type: String, required: [true, "Please Provide the mail-id"] },
+  email: { type: String, required: [true, "Please Provide the mail-id"] , unique:true},
   username: { type: String },
   password: { type: String },
   isVerified: { type: Boolean, default: false },
