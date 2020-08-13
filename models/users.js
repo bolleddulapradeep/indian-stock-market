@@ -5,8 +5,11 @@ var Users = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: [true, "Please Provide the mail-id"] , unique:true},
   username: { type: String },
-  password: { type: String },
+  password: { type: String, required: [true, "Password is required"] },
+  reset_password: { type: String},
   isVerified: { type: Boolean, default: false },
+  isDeleted: { type: Boolean, default: false },
+  verifyingMail : {type:String},
   phone: {
     type: Number,
     maxlength: 10,

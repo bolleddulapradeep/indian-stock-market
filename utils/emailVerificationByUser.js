@@ -1,16 +1,16 @@
 var JWT = require("jsonwebtoken");
 const emailVerificationByUser = (req, res, next) => {
-    if (req.headers.authorization) {
-        JWT.verify(req.headers.authorization.replace("Bearer ", ""),
-            "tokenGenerated", (err, tokenUserData) => {
-                if (err) {
-                    return res.sendStatus(403);
-                }
-                req.user = tokenUserData;
-                req.body = req.user;
-                console.log(req.user)
-                next();                    
-            });
+  JWT.verify(
+    req.params.verify_email,
+    "tokenGenerated",
+    (err, tokenUserData) => {
+      console.log(err);
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = tokenUserData;
+      next();
     }
-}
+  );
+};
 module.exports = emailVerificationByUser;
